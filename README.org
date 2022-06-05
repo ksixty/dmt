@@ -7,47 +7,41 @@ This is a project to implement an interactive Linux shell with debugging and sta
 *** Inspecting running processes [75%]
 **** DONE List current running processes
 #+BEGIN_SRC lisp
-(serapeum:take 5 (list-processes :sort-by 'memory))
+DMT> (serapeum:take 5 (list-processes :sort-by 'memory))
+(#< 1168427 mako                 1678.6M>
+ #< 1177795 firefox              1198.7M>
+ #< 1290815 telegram-deskto       971.7M>
+ #< 1428289 Isolated Web Co       493.0M>
+ #< 1168356 emacs                 450.5M>)
 #+END_SRC
-#+RESULTS:
-: (#< 1168427 mako                 1678.6M>
-:  #< 1177795 firefox              1198.7M>
-:  #< 1290815 telegram-deskto       971.7M>
-:  #< 1428289 Isolated Web Co       493.0M>
-:  #< 1168356 emacs                 450.5M>)
 **** TODO Get ~top~-like percentage stats
 For CPU, memory, IO and network interfaces.
 
 **** DONE Parse ~/proc/<PID>~ data into Lisp objects
 #+BEGIN_SRC lisp
-(with-slots (stat stat-memory pid) (make-process 1)
-  (values stat stat-memory pid))
+DMT> (with-slots (stat stat-memory pid) (make-process 1)
+       (values stat stat-memory pid))
+#S(PROC-STAT (systemd))
+#S(PROC-STAT-MEMORY :RESIDENT  11.9M :SHARED   8.8M)
+1
 #+END_SRC
-
-#+RESULTS:
-: #S(PROC-STAT (systemd)), #S(PROC-STAT-MEMORY :RESIDENT  11.9M :SHARED   8.8M), 1
 
 **** DONE Find a process by its name or argument vector (cmdline)
 #+BEGIN_SRC lisp
-(first (find-processes "bash --debugger"))
+DMT> (first (find-processes "bash --debugger"))
+#< 2293234 bash                    5.6M>
 #+END_SRC
-
-#+RESULTS:
-: #< 2293234 bash                    5.6M>
-
 
 *** Debugging [16%]
 
 **** DONE Kill a process
 A ~kill-process~ method that is implemented using CFFI and C's ~kill (2)~:
 #+BEGIN_SRC lisp
-(mapc #'kill-process (find-processes "bash"))
+DMT> (mapc #'kill-process (find-processes "bash"))
+(#< 2293234 bash                    5.6M>
+ #< 2293911 bash                    5.6M>
+ #< 2293921 bash                    5.6M>)
 #+END_SRC
-
-#+RESULTS:
-: (#< 2293234 bash                    5.6M>
-:  #< 2293911 bash                    5.6M>
-:  #< 2293921 bash                    5.6M>)
 
 **** TODO Attach ~ptrace~ to a process
 **** TODO Read process memory and registers
