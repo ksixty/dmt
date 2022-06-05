@@ -1,6 +1,8 @@
-* DMT debugging shell
+* The DMT Debugging Shell
 
-This is a project to implement an interactive Linux shell with debugging and statistical features in ANSI Common Lisp. Inspired by the Lisp REPL and Incompatible Timesharing System’s [[https://en.wikipedia.org/wiki/Dynamic_debugging_technique][DDT]] (hence the name DMT, *M* stands for *Meta*, ha-ha).
+This is a project to implement an interactive Linux shell with debugging and statistical features in ANSI Common Lisp.
+
+Inspired by the Lisp REPL and Incompatible Timesharing System’s [[https://en.wikipedia.org/wiki/Dynamic_debugging_technique][DDT]] (hence the name DMT, /M/ stands for /Meta/, ha-ha).
 
 ** Features
 
